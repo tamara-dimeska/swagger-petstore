@@ -1,0 +1,8 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+<suite name="APITestSuite">
+    <test name="ApiTests">
+        <packages>
+            <package name="ip.swagger.petstore.userapis"/>
+        </packages>
+    </test>
+</suite>
