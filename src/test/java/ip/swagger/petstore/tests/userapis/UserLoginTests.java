@@ -1,6 +1,6 @@
-package ip.swagger.petstore.userapis;
+package ip.swagger.petstore.tests.userapis;
 
-import ip.swagger.petstore.BaseTest;
+import ip.swagger.petstore.tests.BaseTest;
 import org.testng.annotations.Test;
 
 public class UserLoginTests extends BaseTest {

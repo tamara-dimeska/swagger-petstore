@@ -1,4 +1,4 @@
-package ip.swagger.petstore.userapis;
+package ip.swagger.petstore.tests.userapis;
 
 import org.testng.annotations.Test;
 

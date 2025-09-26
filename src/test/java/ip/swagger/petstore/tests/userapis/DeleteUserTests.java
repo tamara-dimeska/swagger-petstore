@@ -1,11 +1,11 @@
-package ip.swagger.petstore.userapis;
+package ip.swagger.petstore.tests.userapis;
 
 import org.testng.annotations.Test;
 
-public class UpdateUserTests {
+public class DeleteUserTests {
 
     @Test
-    public void shouldReturn200WhenUserIsUpdated() {
+    public void shouldReturn200WhenUserIsDeleted() {
 
     }
 

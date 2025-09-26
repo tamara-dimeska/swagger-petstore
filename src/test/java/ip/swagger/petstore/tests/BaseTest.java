@@ -1,4 +1,4 @@
-package ip.swagger.petstore;
+package ip.swagger.petstore.tests;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -12,8 +12,6 @@ import java.net.http.HttpResponse;
 import java.util.UUID;
 
 public class BaseTest {
-
-    public static String baseUrl = "http://localhost:8080/api/v3";
 
     public static String generateRandomUsername() {
         return UUID.randomUUID().toString().replaceAll("-", "").substring(0, 6);
@@ -37,22 +35,6 @@ public class BaseTest {
 
             return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(user);
         } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public static HttpResponse<String> makePostRequest(String url, String body) {
-        try {
-            HttpClient client = HttpClient.newHttpClient();
-
-            HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create(url))
-                    .header("Content-Type", "application/json")
-                    .POST(HttpRequest.BodyPublishers.ofString(body))
-                    .build();
-
-            return client.send(request, HttpResponse.BodyHandlers.ofString());
-        } catch (IOException | InterruptedException e) {
             throw new RuntimeException(e);
         }
     }

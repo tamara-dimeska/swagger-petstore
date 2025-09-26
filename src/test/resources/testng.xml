@@ -2,7 +2,7 @@
 <suite name="APITestSuite">
     <test name="ApiTests">
         <packages>
-            <package name="ip.swagger.petstore.userapis"/>
+            <package name="ip.swagger.petstore.tests.userapis"/>
         </packages>
     </test>
 </suite>

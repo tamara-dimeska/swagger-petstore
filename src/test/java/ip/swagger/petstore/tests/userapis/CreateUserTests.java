@@ -1,18 +1,22 @@
-package ip.swagger.petstore.userapis;
+package ip.swagger.petstore.tests.userapis;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import ip.swagger.petstore.BaseTest;
+import ip.swagger.petstore.apiobjects.UsersApi;
+import ip.swagger.petstore.tests.BaseTest;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import java.net.http.HttpResponse;
 
 public class CreateUserTests extends BaseTest {
+    UsersApi usersApi;
 
     @Test
     public void shouldReturn200WhenASingleUserIsCreated() throws Exception {
         String user = generateUserObject();
-        HttpResponse<String> response = makePostRequest(baseUrl + "/user", user);
+        usersApi = new UsersApi();
+
+        HttpResponse<String> response = usersApi.createUser(user);
 
         ObjectMapper mapper = new ObjectMapper();
 
@@ -23,7 +27,9 @@ public class CreateUserTests extends BaseTest {
 
     @Test
     public void shouldReturn400WhenEmptyBodyForUserIsSent() throws Exception {
-        HttpResponse<String> response = makePostRequest(baseUrl + "/user", "");
+        usersApi = new UsersApi();
+
+        HttpResponse<String> response = usersApi.createUser("");
 
         Assert.assertEquals(response.statusCode(), 400, "Expected HTTP 400 response.");
     }
