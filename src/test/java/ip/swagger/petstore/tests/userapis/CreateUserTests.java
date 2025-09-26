@@ -13,7 +13,7 @@ public class CreateUserTests extends BaseTest {
 
     @Test
     public void shouldReturn200WhenASingleUserIsCreated() throws Exception {
-        String user = generateUserObject();
+        String user = generateUserObject(generateRandomUsername());
         usersApi = new UsersApi();
 
         HttpResponse<String> response = usersApi.createUser(user);

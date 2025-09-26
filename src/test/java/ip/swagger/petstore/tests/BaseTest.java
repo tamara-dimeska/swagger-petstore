@@ -4,11 +4,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
-import java.io.IOException;
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
 import java.util.UUID;
 
 public class BaseTest {
@@ -17,10 +12,8 @@ public class BaseTest {
         return UUID.randomUUID().toString().replaceAll("-", "").substring(0, 6);
     }
 
-    public static String generateUserObject() {
+    public static String generateUserObject(String username) {
         try {
-            String username = generateRandomUsername();
-
             ObjectMapper mapper = new ObjectMapper();
             ObjectNode user = mapper.createObjectNode();
 
@@ -38,4 +31,6 @@ public class BaseTest {
             throw new RuntimeException(e);
         }
     }
+
+
 }

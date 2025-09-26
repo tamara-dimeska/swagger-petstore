@@ -14,7 +14,10 @@ public class CreateUsersFromAListTests extends BaseTest {
 
     @Test
     public void shouldReturn200WhenMultipleUsersAreCreated() throws Exception {
-        String[] users = {generateUserObject(), generateUserObject()};
+        String[] users = {
+                generateUserObject(generateRandomUsername()),
+                generateUserObject(generateRandomUsername())
+        };
         String usersString = new Utils().combineUserObjectsInString(users);
         usersApi = new UsersApi();
 
@@ -39,7 +42,7 @@ public class CreateUsersFromAListTests extends BaseTest {
 
     @Test
     public void shouldReturn400WhenAUserInsteadOfUserListIsSent() throws Exception {
-        String users = generateUserObject();
+        String users = generateUserObject(generateRandomUsername());
         usersApi = new UsersApi();
 
         HttpResponse<String> response = usersApi.createUsersFromList(users);

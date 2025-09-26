@@ -4,6 +4,7 @@ import ip.swagger.petstore.utils.Utils;
 
 import java.net.http.HttpClient;
 import java.net.http.HttpResponse;
+import java.util.HashMap;
 
 public class UsersApi extends BaseApi {
     private static final String baseUrl = BaseApi.BASE_URL + "/user";
@@ -24,5 +25,17 @@ public class UsersApi extends BaseApi {
 
     public HttpResponse<String> createUsersFromList(String users) {
         return makePostRequest(baseUrl + "/createWithList", users);
+    }
+
+    public HttpResponse<String> deleteUser(String username) {
+        return makeDeleteRequest(baseUrl + "/" + username);
+    }
+
+    public HttpResponse<String> loginUser(String username, String passport) {
+        HashMap<String, String> parameters = new HashMap<>();
+        parameters.put("username", username);
+        parameters.put("password", passport);
+
+        return  makeGetRequest(baseUrl + "/login", parameters);
     }
 }
