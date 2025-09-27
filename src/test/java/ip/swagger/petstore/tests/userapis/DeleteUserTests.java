@@ -13,7 +13,7 @@ public class DeleteUserTests extends BaseTest {
     String username;
 
     @BeforeMethod
-    public void createUser() {
+    public void setup() {
         username = generateRandomUsername();
         String user = generateUserObject(username);
         usersApi = new UsersApi();

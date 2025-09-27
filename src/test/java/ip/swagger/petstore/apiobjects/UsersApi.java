@@ -36,6 +36,18 @@ public class UsersApi extends BaseApi {
         parameters.put("username", username);
         parameters.put("password", passport);
 
-        return  makeGetRequest(baseUrl + "/login", parameters);
+        return makeGetRequest(baseUrl + "/login", parameters);
+    }
+
+    public HttpResponse<String> logoutUser() {
+        return makeGetRequest(baseUrl + "/logout");
+    }
+
+    public HttpResponse<String> updateUser(String username, String body) {
+        return makePutRequest(baseUrl, username, body);
+    }
+
+    public HttpResponse<String> getUser(String username) {
+        return makeGetRequest(baseUrl + "/" + username);
     }
 }

@@ -62,4 +62,32 @@ public class BaseApi {
             throw new RuntimeException(e);
         }
     }
+
+    public HttpResponse<String> makeGetRequest(String url) {
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(url))
+                .header("Content-Type", "application/json")
+                .GET()
+                .build();
+
+        try {
+            return client.send(request, HttpResponse.BodyHandlers.ofString());
+        } catch (IOException | InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public HttpResponse<String> makePutRequest(String url, String parameter, String body) {
+        try {
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(url + "/" + parameter))
+                    .header("Content-Type", "application/json")
+                    .PUT(HttpRequest.BodyPublishers.ofString(body))
+                    .build();
+
+            return client.send(request, HttpResponse.BodyHandlers.ofString());
+        } catch (IOException | InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

@@ -14,7 +14,7 @@ public class UserLoginTests extends BaseTest {
     String username;
 
     @BeforeMethod
-    public void createUser() {
+    public void setup() {
         username = generateRandomUsername();
         String user = generateUserObject(username);
         usersApi = new UsersApi();
@@ -23,7 +23,7 @@ public class UserLoginTests extends BaseTest {
     }
 
     @AfterMethod
-    public void deleteUser() {
+    public void cleanUp() {
         usersApi.deleteUser(username);
     }
 
