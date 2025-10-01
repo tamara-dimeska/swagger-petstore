@@ -15,8 +15,8 @@ public class PetsApi extends BaseApi {
         return makePostRequest(baseUrl, pet);
     }
 
-    public HttpResponse<String> deletePet(String petId) {
-        return makeDeleteRequest(baseUrl + petId);
+    public HttpResponse<String> deletePet(int petId) {
+        return makeDeleteRequest(baseUrl + "/" + petId);
     }
 
     public HttpResponse<String> updatePet(String body) {
