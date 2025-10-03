@@ -31,12 +31,21 @@ public class PetsApi extends BaseApi {
     }
 
     public HttpResponse<String> findPetByTags(String[] tags) {
-        HashMap<String, String> parameters = new HashMap<>();
-        for (String tag : tags) {
-            parameters.put("tags", tag);
+        StringBuilder tagsString = new StringBuilder();
+
+        for (int i = 0; i < tags.length; i++) {
+            if (i == 0) {
+                tagsString.append("?tags=").append(tags[i]);
+            } else {
+                tagsString.append("&tags=").append(tags[i]);
+            }
         }
 
-        return makeGetRequest(baseUrl + "/findByTags", parameters);
+        return makeGetRequest(baseUrl + "/findByTags" + tagsString);
+    }
+
+    public HttpResponse<String> findPetByPetId(int petId) {
+        return makeGetRequest(baseUrl + "/" + petId);
     }
 
     public HttpResponse<String> findPetByPetId(String petId) {
