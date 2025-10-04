@@ -4,6 +4,7 @@
         <packages>
             <package name="ip.swagger.petstore.tests.userapis"/>
             <package name="ip.swagger.petstore.tests.petapis"/>
+            <package name="ip.swagger.petstore.tests.storeapis"/>
         </packages>
     </test>
 </suite>

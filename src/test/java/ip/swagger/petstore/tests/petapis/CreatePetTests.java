@@ -24,7 +24,6 @@ public class CreatePetTests extends BaseTest {
         HttpResponse<String> response = petsApi.createPet(pet);
 
         Assert.assertEquals(response.statusCode(), 200, "Expected HTTP 200 response.");
-
         // mapper.readTree ignores any whitespaces and formatting
         Assert.assertEquals(mapper.readTree(response.body()), mapper.readTree(pet), "Expected and actual body do not match.");
     }

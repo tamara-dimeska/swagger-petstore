@@ -6,6 +6,9 @@ import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import ip.swagger.petstore.apiobjects.UsersApi;
 
+import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
 import java.util.UUID;
 
 public class BaseTest {
@@ -132,6 +135,48 @@ public class BaseTest {
             newPetInfo.put("status", status);
 
             return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(newPetInfo);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static String generateOrderObject(int id, int petId, int quantity, String status) {
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+            ObjectNode order = mapper.createObjectNode();
+            DateTimeFormatter formatter =
+                    DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSxxx");
+            String time = OffsetDateTime.now(ZoneOffset.UTC).format(formatter);
+
+            order.put("id", id);
+            order.put("petId", petId);
+            order.put("quantity", quantity);
+            order.put("shipDate", time);
+            order.put("status", status);
+            order.put("complete", true);
+
+            return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(order);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static String generateOrderObject(String id, int petId, int quantity, String status) {
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+            ObjectNode order = mapper.createObjectNode();
+            DateTimeFormatter formatter =
+                    DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSxxx");
+            String time = OffsetDateTime.now(ZoneOffset.UTC).format(formatter);
+
+            order.put("id", id);
+            order.put("petId", petId);
+            order.put("quantity", quantity);
+            order.put("shipDate", time);
+            order.put("status", status);
+            order.put("complete", true);
+
+            return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(order);
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
