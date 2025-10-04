@@ -1,7 +1,6 @@
 package ip.swagger.petstore.tests.userapis;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import ip.swagger.petstore.apiobjects.UsersApi;
 import ip.swagger.petstore.tests.BaseTest;
 import org.testng.Assert;
