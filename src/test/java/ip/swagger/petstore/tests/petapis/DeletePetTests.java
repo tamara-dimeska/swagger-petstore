@@ -15,8 +15,8 @@ public class DeletePetTests extends BaseTest {
 
     @BeforeMethod
     public void setup() {
-        String pet = generatePetObject(id, "Doggo", "dog", new String[]{"dog"}, "available");
         id = new Random().nextInt(1000);
+        String pet = generatePetObject(id, "Doggo", "dog", new String[]{"dog"}, "available");
         petsApi = new PetsApi();
 
         petsApi.createPet(pet);
