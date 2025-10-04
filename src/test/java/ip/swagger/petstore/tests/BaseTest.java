@@ -4,7 +4,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import ip.swagger.petstore.apiobjects.PetsApi;
 import ip.swagger.petstore.apiobjects.UsersApi;
 
 import java.util.UUID;
@@ -100,9 +99,41 @@ public class BaseTest {
         }
     }
 
-    public void createPet(PetsApi petsApi, int id, String name, String category, String[] tags, String status) {
-        String pet = generatePetObject(id, name, category, tags, status);
+    public static String generatePetObject(String id, String name, String category, String[] tags, String status) {
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+            ObjectNode newPetInfo = mapper.createObjectNode();
 
-        petsApi.createPet(pet);
+            newPetInfo.put("id", id);
+
+            ObjectNode petCategory = mapper.createObjectNode();
+            petCategory.put("id", 1);
+            petCategory.put("name", category);
+
+            newPetInfo.set("category", petCategory);
+            newPetInfo.put("name", name);
+
+            ArrayNode photosUrls = mapper.createArrayNode();
+            photosUrls.add("url");
+
+            newPetInfo.set("photoUrls", photosUrls);
+
+            ArrayNode tagsArray = mapper.createArrayNode();
+            ObjectNode tagsInfo = mapper.createObjectNode();
+            int index = 0;
+
+            for (String tag: tags) {
+                tagsInfo.put("id", index);
+                tagsInfo.put("name", tag);
+            }
+            tagsArray.add(tagsInfo);
+            newPetInfo.set("tags", tagsArray);
+
+            newPetInfo.put("status", status);
+
+            return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(newPetInfo);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
