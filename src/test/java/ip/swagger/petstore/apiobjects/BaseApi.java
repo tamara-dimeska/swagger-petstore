@@ -44,6 +44,7 @@ public class BaseApi {
         }
     }
 
+    // GET request with parameters
     public HttpResponse<String> makeGetRequest(String url, HashMap<String, String> parameters) {
         String queryString = parameters.entrySet()
                 .stream()
@@ -63,6 +64,7 @@ public class BaseApi {
         }
     }
 
+    // GET request without parameters
     public HttpResponse<String> makeGetRequest(String url) {
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(url))
@@ -77,6 +79,7 @@ public class BaseApi {
         }
     }
 
+    // PUT request with parameters and body
     public HttpResponse<String> makePutRequest(String url, String parameter, String body) {
         try {
             HttpRequest request = HttpRequest.newBuilder()
@@ -91,6 +94,7 @@ public class BaseApi {
         }
     }
 
+    // PUT request only with body, no additional parameters
     public HttpResponse<String> makePutRequest(String url, String body) {
         try {
             HttpRequest request = HttpRequest.newBuilder()

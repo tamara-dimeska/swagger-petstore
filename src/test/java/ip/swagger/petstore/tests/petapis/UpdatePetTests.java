@@ -2,6 +2,7 @@ package ip.swagger.petstore.tests.petapis;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import ip.swagger.petstore.apiobjects.PetsApi;
+import ip.swagger.petstore.testdata.TestData;
 import ip.swagger.petstore.tests.BaseTest;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
@@ -18,7 +19,7 @@ public class UpdatePetTests extends BaseTest {
     @BeforeMethod
     public void setup() {
         id = new Random().nextInt(1000);
-        String pet = generatePetObject(id, "Doggo", "dog", new String[]{"dog"}, "available");
+        String pet = generatePetObject(id, TestData.DOG_NAME, TestData.DOG_CATEGORY, TestData.DOG_TAGS, TestData.DOG_STATUS);
         petsApi = new PetsApi();
 
         petsApi.createPet(pet);
@@ -31,7 +32,7 @@ public class UpdatePetTests extends BaseTest {
 
     @Test
     public void shouldReturn200WhenThePetIsSuccessfullyUpdated() throws Exception {
-        String updatedPet = generatePetObject(id, "Catto", "cat", new String[]{"cat"}, "pending");
+        String updatedPet = generatePetObject(id, TestData.CAT_NAME, TestData.CAT_CATEGORY, TestData.CAT_TAGS, TestData.CAT_STATUS);
 
         HttpResponse<String> response = petsApi.updatePet(updatedPet);
 
@@ -44,7 +45,7 @@ public class UpdatePetTests extends BaseTest {
 
     @Test
     public void shouldReturn404WhenThePetIdDoesNotExist() {
-        String updatedPet = generatePetObject(id + 123, "Catto", "cat", new String[]{"cat"}, "pending");
+        String updatedPet = generatePetObject(id + 123, TestData.CAT_NAME, TestData.CAT_CATEGORY, TestData.CAT_TAGS, TestData.CAT_STATUS);
 
         HttpResponse<String> response = petsApi.updatePet(updatedPet);
 
@@ -54,7 +55,7 @@ public class UpdatePetTests extends BaseTest {
 
     @Test
     public void shouldReturn400WhenThePetIdIsInvalid() {
-        String updatedPet = generatePetObject("abc", "Catto", "cat", new String[]{"cat"}, "pending");
+        String updatedPet = generatePetObject("abc", TestData.CAT_NAME, TestData.CAT_CATEGORY, TestData.CAT_TAGS, TestData.CAT_STATUS);
 
         HttpResponse<String> response = petsApi.updatePet(updatedPet);
 

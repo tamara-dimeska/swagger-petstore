@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import ip.swagger.petstore.apiobjects.PetsApi;
+import ip.swagger.petstore.testdata.TestData;
 import ip.swagger.petstore.tests.BaseTest;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -16,7 +17,7 @@ public class CreatePetTests extends BaseTest {
 
     @Test
     public void shouldReturn200WhenAPetIsCreated() throws Exception {
-        String pet = generatePetObject(10, "Doggo", "dogs", new String[]{"dog"}, "available");
+        String pet = generatePetObject(10, TestData.DOG_NAME, TestData.DOG_CATEGORY, TestData.DOG_TAGS, TestData.DOG_STATUS);
         petsApi = new PetsApi();
 
         ObjectMapper mapper = new ObjectMapper();
@@ -30,7 +31,7 @@ public class CreatePetTests extends BaseTest {
 
     @Test
     public void shouldReturn400WhenAWringPetObjectIsSent() {
-        String pet = generateWrongPetObject("Doggo", "dogs", new String[]{"dog"}, "available");
+        String pet = generateWrongPetObject();
         petsApi = new PetsApi();
 
         HttpResponse<String> response = petsApi.createPet(pet);
@@ -38,7 +39,7 @@ public class CreatePetTests extends BaseTest {
         Assert.assertEquals(response.statusCode(), 400, "Expected HTTP 400 response.");
     }
 
-    private static String generateWrongPetObject(String name, String category, String[] tags, String status) {
+    private static String generateWrongPetObject() {
         try {
             ObjectMapper mapper = new ObjectMapper();
             ObjectNode newPetInfo = mapper.createObjectNode();
@@ -46,26 +47,23 @@ public class CreatePetTests extends BaseTest {
             newPetInfo.put("id", 1);
 
             ObjectNode petCategory = mapper.createObjectNode();
-            petCategory.put("id", 1);
-            petCategory.put("name", category);
+            petCategory.put("id", TestData.PET_CATEGORY_ID);
+            petCategory.put("name", TestData.DOG_CATEGORY);
 
             newPetInfo.set("category", petCategory);
-            newPetInfo.put("name", name);
+            newPetInfo.put("name", TestData.DOG_NAME);
 
             ArrayNode photosUrls = mapper.createArrayNode();
-            photosUrls.add("url");
+            photosUrls.add(TestData.PET_URL);
 
             newPetInfo.set("photoUrls", photosUrls);
 
             ArrayNode tagsArray = mapper.createArrayNode();
-
-            for (String tag: tags) {
-                tagsArray.add(tag);
-            }
+            tagsArray.add("dog");
 
             newPetInfo.set("tags", tagsArray);
 
-            newPetInfo.put("status", status);
+            newPetInfo.put("status", TestData.DOG_STATUS);
 
             return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(newPetInfo);
         } catch (JsonProcessingException e) {

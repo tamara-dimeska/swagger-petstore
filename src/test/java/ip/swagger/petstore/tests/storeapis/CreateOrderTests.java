@@ -2,6 +2,7 @@ package ip.swagger.petstore.tests.storeapis;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import ip.swagger.petstore.apiobjects.StoreApi;
+import ip.swagger.petstore.testdata.TestData;
 import ip.swagger.petstore.tests.BaseTest;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -13,7 +14,7 @@ public class CreateOrderTests extends BaseTest {
 
     @Test
     public void shouldReturn200WhenAnOrderIsCreated() throws Exception{
-        String order = generateOrderObject(10, 123, 2, "available");
+        String order = generateOrderObject(TestData.ORDER_ID, TestData.ORDER_PET_ID, TestData.ORDER_QUANTITY, TestData.ORDER_STATUS);
         storeApi = new StoreApi();
 
         ObjectMapper mapper = new ObjectMapper();
@@ -27,7 +28,7 @@ public class CreateOrderTests extends BaseTest {
 
     @Test
     public void shouldReturn400WhenAnOrderIsNotCreated() {
-        String order = generateOrderObject("abc", 123, 2, "available");
+        String order = generateOrderObject("abc", TestData.ORDER_PET_ID, TestData.ORDER_QUANTITY, TestData.ORDER_STATUS);
         storeApi = new StoreApi();
 
         HttpResponse<String> response = storeApi.createAnOrder(order);
