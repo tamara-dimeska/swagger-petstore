@@ -37,10 +37,10 @@ public class GetInventoryTests extends BaseTest {
         HttpResponse<String> response = storeApi.getInventory();
 
         Assert.assertEquals(response.statusCode(), 200, "Expected HTTP 200 response.");
-        Assert.assertTrue(response.body().contains("approved"), "Expected body was not returned.");
-        Assert.assertTrue(response.body().contains("placed"), "Expected body was not returned.");
-        Assert.assertTrue(response.body().contains("available"), "Expected body was not returned.");
-        Assert.assertTrue(response.body().contains("delivered"), "Expected body was not returned.");
+        Assert.assertTrue(response.body().contains("approved"), "APPROVED was not returned in the response body.");
+        Assert.assertTrue(response.body().contains("placed"), "PLACED was not returned in the response body.");
+        Assert.assertTrue(response.body().contains("available"), "AVAILABLE was not returned in the response body.");
+        Assert.assertTrue(response.body().contains("delivered"), "DELIVERED was not returned in the response body.");
     }
 
     @Test
