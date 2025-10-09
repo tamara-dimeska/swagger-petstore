@@ -1,7 +1,10 @@
 package ip.swagger.petstore.tests.userapis;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import ip.swagger.petstore.apiobjects.UsersApi;
+import ip.swagger.petstore.testdata.TestData;
 import ip.swagger.petstore.tests.BaseTest;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
@@ -63,5 +66,25 @@ public class UpdateUserTests extends BaseTest {
 
         Assert.assertEquals(response.statusCode(), 400, "Expected HTTP 400 response.");
         Assert.assertTrue(response.body().contains("Input error: unable to convert input to io.swagger.petstore.model.User"), "Expected body was not returned.");
+    }
+
+    private static String updateUserObject(String username) {
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+            ObjectNode newUserInfo = mapper.createObjectNode();
+
+            newUserInfo.put("id", TestData.USER_ID);
+            newUserInfo.put("username", username + "UPDATED");
+            newUserInfo.put("firstName", username + "-firstName UPDATED");
+            newUserInfo.put("lastName", username + "-lastName UPDATED");
+            newUserInfo.put("email", username + "UPDATED" + TestData.EMAIL_DOMAIN);
+            newUserInfo.put("password", TestData.USER_PASSWORD_UPDATED);
+            newUserInfo.put("phone", TestData.USER_PHONE_UPDATED);
+            newUserInfo.put("userStatus", TestData.USER_STATUS);
+
+            return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(newUserInfo);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

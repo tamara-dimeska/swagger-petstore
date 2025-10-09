@@ -2,6 +2,7 @@ package ip.swagger.petstore.tests.storeapis;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import ip.swagger.petstore.apiobjects.StoreApi;
+import ip.swagger.petstore.testdata.TestData;
 import ip.swagger.petstore.tests.BaseTest;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
@@ -19,7 +20,7 @@ public class FindOrderTests extends BaseTest {
     @BeforeMethod
     public void setup() {
         id = new Random().nextInt(1000);
-        order = generateOrderObject(id, 123, 10, "available");
+        order = generateOrderObject(id, TestData.ORDER_PET_ID, TestData.ORDER_QUANTITY, TestData.ORDER_STATUS);
         storeApi = new StoreApi();
 
         storeApi.createAnOrder(order);

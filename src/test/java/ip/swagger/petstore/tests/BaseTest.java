@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import ip.swagger.petstore.apiobjects.UsersApi;
+import ip.swagger.petstore.testdata.TestData;
 
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
@@ -22,36 +23,16 @@ public class BaseTest {
             ObjectMapper mapper = new ObjectMapper();
             ObjectNode user = mapper.createObjectNode();
 
-            user.put("id", 1);
+            user.put("id", TestData.USER_ID);
             user.put("username", username);
             user.put("firstName", username + "-firstName");
             user.put("lastName", username + "-lastName");
-            user.put("email", username + "@email.com");
-            user.put("password", "12345");
-            user.put("phone", "12345");
-            user.put("userStatus", 1);
+            user.put("email", username + TestData.EMAIL_DOMAIN);
+            user.put("password", TestData.USER_PASSWORD);
+            user.put("phone", TestData.USER_PHONE);
+            user.put("userStatus", TestData.USER_STATUS);
 
             return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(user);
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public static String updateUserObject(String username) {
-        try {
-            ObjectMapper mapper = new ObjectMapper();
-            ObjectNode newUserInfo = mapper.createObjectNode();
-
-            newUserInfo.put("id", 1);
-            newUserInfo.put("username", username + "UPDATED");
-            newUserInfo.put("firstName", username + "-firstName UPDATED");
-            newUserInfo.put("lastName", username + "-lastName UPDATED");
-            newUserInfo.put("email", username + "UPDATED@email.com");
-            newUserInfo.put("password", "54321");
-            newUserInfo.put("phone", "54321");
-            newUserInfo.put("userStatus", 1);
-
-            return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(newUserInfo);
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
@@ -61,7 +42,7 @@ public class BaseTest {
         String user = generateUserObject(username);
 
         usersApi.createUser(user);
-        usersApi.loginUser(username, "12345");
+        usersApi.loginUser(username, TestData.USER_PASSWORD);
     }
 
     public static String generatePetObject(int id, String name, String category, String[] tags, String status) {
@@ -72,7 +53,7 @@ public class BaseTest {
             newPetInfo.put("id", id);
 
             ObjectNode petCategory = mapper.createObjectNode();
-            petCategory.put("id", 1);
+            petCategory.put("id", TestData.PET_CATEGORY_ID);
             petCategory.put("name", category);
 
             newPetInfo.set("category", petCategory);
@@ -110,7 +91,7 @@ public class BaseTest {
             newPetInfo.put("id", id);
 
             ObjectNode petCategory = mapper.createObjectNode();
-            petCategory.put("id", 1);
+            petCategory.put("id", TestData.PET_CATEGORY_ID);
             petCategory.put("name", category);
 
             newPetInfo.set("category", petCategory);

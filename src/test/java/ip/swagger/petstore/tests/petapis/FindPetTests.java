@@ -2,6 +2,7 @@ package ip.swagger.petstore.tests.petapis;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import ip.swagger.petstore.apiobjects.PetsApi;
+import ip.swagger.petstore.testdata.TestData;
 import ip.swagger.petstore.tests.BaseTest;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
@@ -19,7 +20,7 @@ public class FindPetTests extends BaseTest {
     @BeforeMethod
     public void setup() {
         id = new Random().nextInt(1000);
-        String pet = generatePetObject(id, "Doggo", "dog", new String[]{"dog"}, "available");
+        String pet = generatePetObject(id, TestData.DOG_NAME, TestData.DOG_CATEGORY, TestData.DOG_TAGS, TestData.DOG_STATUS);
         petsApi = new PetsApi();
 
         response = petsApi.createPet(pet);
@@ -58,7 +59,7 @@ public class FindPetTests extends BaseTest {
 
     @Test
     public void shouldReturn200WhenMultipleValidSTagsAreEntered() {
-        String secondPet = generatePetObject(id + 1, "Catto", "cat", new String[]{"cat"}, "available");
+        String secondPet = generatePetObject(id + 1, TestData.CAT_NAME, TestData.CAT_CATEGORY, TestData.CAT_TAGS, TestData.CAT_STATUS);
         HttpResponse<String> secondPetResponse = petsApi.createPet(secondPet);
 
         HttpResponse<String> getResponse = petsApi.findPetByTags(new String[]{"dog", "cat"});
