@@ -1,12 +1,12 @@
 package ip.swagger.petstore.testdata;
 
 public final class TestData {
-    public static final String USER_PASSWORD = "12345";
+    public static final String USER_PASSWORD = System.getenv("USER_PASSWORD");
     public static final String USER_PHONE = "12345";
     public static final String EMAIL_DOMAIN = "@email.com";
     public static final int USER_ID = 1;
     public static final int USER_STATUS = 1;
-    public static final String USER_PASSWORD_UPDATED = "54321";
+    public static final String USER_PASSWORD_UPDATED = System.getenv("USER_NEW_PASSWORD");
     public static final String USER_PHONE_UPDATED = "54321";
 
     public static final int PET_CATEGORY_ID = 1;
