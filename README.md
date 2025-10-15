@@ -1,44 +1,34 @@
 # Swagger Petstore Sample
 
-## Overview
-This is the pet store sample hosted at https://petstore3.swagger.io. For other versions, check the branches.
-We welcome suggestion both the code and the API design.
-To make changes to the design itself, take a look at https://github.com/swagger-api/swagger-petstore/blob/master/src/main/resources/openapi.yaml.
+This is a forked repo from [Swagger Petsore Sample](https://github.com/swagger-api/swagger-petstore).
 
-This is a java project to build a stand-alone server which implements the OpenAPI 3 Spec.  You can find out
-more about both the spec and the framework at http://swagger.io.
+I used this project to write some API tests, that can be found in `/src/test/java/ip.swagger.petstore`.
+I also added reporting and Github Actions workflow, that runs the tests on each push/pull request created.
 
-This sample is based on [swagger-inflector](https://github.com/swagger-api/swagger-inflector), and provides an example of swagger / OpenAPI 3 petstore.
+## API Tests
+For the tests I used the TestNG framework and the API objects test design/pattern.
 
-### To run (with Maven)
-To run the server, run this task:
+Each API group has its own API object that inherits from the `BaseApi` object. In `BaseApi` we have some shared methods and constants that can be used in all other objects.
 
-```
-mvn package jetty:run
-```
+In the `testdata` folder we have most, if not all the test data needed for the tests. Some sensitive data, such as passwords, is saved in Github secrets.
 
-This will start Jetty embedded on port 8080.
+Finally, we have the `tests` folder. In this folder we have the `BaseTest`, which is inherited from all the other tests. Each API has its own test file, with multiple tests inside. All the tests are independent of each other.
 
-### To run (via Docker)
-
-Expose port 8080 from the image and access petstore via the exposed port. You can then add and delete pets as you see fit.
-
-
-*Example*:
+## How to run the tests?
+In order to run the tests locally, you first need to run a local server, where the API are hosted. You can do that by running the following command:
 
 ```
-docker build -t swaggerapi/petstore3:unstable .
+mvn package jetty:run -DskipTests
 ```
 
+This will start Jetty embedded on port 8080. 
+
+Maven needs to be installed beforehand.
+
+For more details, instructions and other ways how to start the server refer to the original documentation in [Swagger Petsore Sample](https://github.com/swagger-api/swagger-petstore).
+
+After the server is up, the tests can be run by executing the command:
+
 ```
-docker pull swaggerapi/petstore3:unstable
-docker run  --name swaggerapi-petstore3 -d -p 8080:8080 swaggerapi/petstore3:unstable
+mvn test
 ```
-
-
-### Testing the server
-Once started, you can navigate to http://localhost:8080/api/v3/openapi.json to view the Swagger Resource Listing.
-This tells you that the server is up and ready to demonstrate Swagger.
-
-### Using the UI
-There is an HTML5-based API tool bundled in this sample--you can view it it at [http://localhost:8080](http://localhost:8080). This lets you inspect the API using an interactive UI.  You can access the source of this code from [here](https://github.com/swagger-api/swagger-ui)
