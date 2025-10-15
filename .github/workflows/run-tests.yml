@@ -40,6 +40,9 @@ jobs:
           done
 
       - name: Run tests and generate report
+        env:
+          USER_PASSWORD: ${{ secrets.USER_PASSWORD }}
+          USER_NEW_PASSWORD: ${{ secrets.USER_NEW_PASSWORD }}
         run: |
           mvn test
           mvn allure:report
